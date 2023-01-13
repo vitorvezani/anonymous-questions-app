@@ -1,4 +1,6 @@
-# Requirements
+# Architecting an App from Scratch - Anonymous ask a question
+
+## 1st Day - Installing required software
 
 ### General
 - Git - https://git-scm.com/downloads
@@ -15,22 +17,25 @@
     - golangci-lint
     - gopls
 
+
+#### [Backend Test](docs/backend-test.md)
+
 ### Front-end
-- NodeJS (X.Y.Z)
+- NodeJS (18+ ) - https://nodejs.org/en/
 
-# Step-by-step
+#### [Front-end Test](docs/frontend-test.md)
 
-Each phase of the tutorial will be represented on a branch, you can move through the phases by changing the branch
+------
 
-`git checkout <branch>`
+## 2nd Day - Backend API Development
+### [Backend step-by-step - API](docs/api_development.md)
 
-1. Initial State
-    1. empty-project
-1. [Adding the API](docs/api_development.md)
-    1. creating-api
-    1. creating-api-tests
-    1. creating-api-final
-1. Adding the database
-    1. adding-database
-    1. adding-database-tests
-    1. adding-database-final
+------
+
+## 3rd Day - Front-end Development
+### [Front-end step-by-step](docs/frontend_development.md)
+
+------
+
+## 4th Day - Deployment
+### [Deployment step-by-step](docs/deplyment_development.md)

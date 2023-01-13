@@ -9,6 +9,10 @@
 
 ## Step-by-step
 
+Each phase of the tutorial will be represented on a branch, you can move through the phases by changing the branch
+
+`git checkout adding-server`
+
 1. create file `main.go` on root of the backend project
 2. setup the main function which is the entry-point of your application
 
@@ -23,3 +27,5 @@ func main() {
 	r.Run() // listen and serve on 0.0.0.0:8080
 }
 ```
+
+To see the final result `git checkout adding-server-final`
