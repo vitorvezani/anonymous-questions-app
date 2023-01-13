@@ -5,10 +5,15 @@
 
 ### Backend
 
-- Golang (v1.19)
+- Golang (v1.19) - https://go.dev/dl/
 - VSC Code - https://code.visualstudio.com/download
-  - extensions: Go - https://go.dev/dl/
-  - go tools: dlv, golangci-lint, gopls
+  - Extensions:
+    - REST Client
+    - Go
+  - Go tools (`cmd+shift+P` > `Go: Install/Update Tools`): 
+    - dlv
+    - golangci-lint
+    - gopls
 
 ### Front-end
 - NodeJS (X.Y.Z)
