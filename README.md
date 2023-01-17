@@ -17,7 +17,7 @@
     - golangci-lint
     - gopls
 
-### [Backend step-by-step - API](backend/README.md#backend-test)
+### [Backend step-by-step - API](backend/README.md#backend-step-by-step---api)
 
 ### Front-end
 - NodeJS (18+ ) - https://nodejs.org/en/
