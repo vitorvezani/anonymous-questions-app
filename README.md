@@ -18,24 +18,24 @@
     - gopls
 
 
-#### [Backend Test](docs/backend-test.md)
+#### [Backend Test](backend/docs/backend-test.md)
 
 ### Front-end
 - NodeJS (18+ ) - https://nodejs.org/en/
 
-#### [Front-end Test](docs/frontend-test.md)
+#### [Front-end Test](frontend/docs/frontend-test.md)
 
 ------
 
 ## 2nd Day - Backend API Development
-### [Backend step-by-step - API](docs/api_development.md)
+### [Backend step-by-step - API](backend/docs/api_development.md)
 
 ------
 
 ## 3rd Day - Front-end Development
-### [Front-end step-by-step](docs/frontend_development.md)
+### [Front-end step-by-step](backend/docs/frontend_development.md)
 
 ------
 
 ## 4th Day - Deployment
-### [Deployment step-by-step](docs/deplyment_development.md)
+### [Deployment step-by-step](backend/docs/deplyment_development.md)
