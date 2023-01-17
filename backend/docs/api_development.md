@@ -2,6 +2,7 @@
 
 ## Libraries used
 - [Gin Web Framework](https://github.com/gin-gonic)
+- [SQLite](https://github.com/glebarez/sqlite)
 
 ## Installation
 
