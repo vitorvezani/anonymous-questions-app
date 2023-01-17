@@ -10,9 +10,9 @@
 - Golang (v1.19) - https://go.dev/dl/
 - VSC Code - https://code.visualstudio.com/download
   - Extensions:
-    - REST Client
     - Go
-  - Go tools (`cmd+shift+P` > `Go: Install/Update Tools`): 
+    - (optional) REST Client
+  - (optional) Go tools (`cmd+shift+P` > `Go: Install/Update Tools`): 
     - dlv
     - golangci-lint
     - gopls
