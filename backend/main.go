@@ -14,7 +14,7 @@ func main() {
 		logrus.Fatal("could not open db connection", err)
 	}
 
-	autoMigrate(db)
+	db.AutoMigrate(&pkg.Question{})
 
 	h, err := pkg.NewHandler(db)
 	if err != nil {
@@ -29,8 +29,4 @@ func main() {
 	}
 
 	s.Start()
-}
-
-func autoMigrate(db *gorm.DB) {
-	db.AutoMigrate(&pkg.Question{})
 }
