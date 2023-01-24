@@ -4,21 +4,26 @@
 - [Gin Web Framework](https://github.com/gin-gonic)
 - [SQLite](https://github.com/glebarez/sqlite)
 
+# Initial checks
+
+- `pwd` should show `PATH_TO_PROJECT/backend`
+
+
+```golang
+	_, err := gorm.Open(sqlite.Open("sqlite.db"), &gorm.Config{})
+	if err != nil {
+		logrus.Fatal("could not open db connection", err)
+	}
+```
+
 # Setup and bootstrap
+
+## Adding SQLite and GORM to the project
+
+1. create a `pkg` folder in backend
 
 ## Adding GIN to the project
 
-`pwd` to show the current directory, if not
-
-> PATH_TO_PROJECT/backend
-
-if you opened anonymous-questions-app
-`code backend/`
-
-pwd should show `PATH_TO_PROJECT/backend`
-
-1. create file `main.go` on root of the backend project
-1. setup the `main` function which is the entry-point of your application
 
 ```
 func main() {
