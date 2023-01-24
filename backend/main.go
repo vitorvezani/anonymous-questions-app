@@ -28,5 +28,5 @@ func main() {
 		logrus.Fatal("could not create server", err)
 	}
 
-	s.Start()
+	logrus.Fatal(s.Start())
 }
