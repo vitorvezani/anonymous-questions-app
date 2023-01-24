@@ -18,7 +18,6 @@ if you opened anonymous-questions-app
 pwd should show `PATH_TO_PROJECT/backend`
 
 1. create file `main.go` on root of the backend project
-1. create folder `pkg` on root of the backend project
 1. setup the `main` function which is the entry-point of your application
 
 ```
