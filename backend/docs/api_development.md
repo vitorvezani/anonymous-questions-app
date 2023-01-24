@@ -4,18 +4,22 @@
 - [Gin Web Framework](https://github.com/gin-gonic)
 - [SQLite](https://github.com/glebarez/sqlite)
 
-## Installation
+# Setup and bootstrap
 
-`go get -u github.com/gin-gonic/gin`
+## Adding GIN to the project
 
-## Step-by-step
+`pwd` to show the current directory, if not
 
-Each phase of the tutorial will be represented on a branch, you can move through the phases by changing the branch
+> PATH_TO_PROJECT/backend
 
-`git checkout adding-server`
+if you opened anonymous-questions-app
+`code backend/`
+
+pwd should show `PATH_TO_PROJECT/backend`
 
 1. create file `main.go` on root of the backend project
-2. setup the main function which is the entry-point of your application
+1. create folder `pkg` on root of the backend project
+1. setup the `main` function which is the entry-point of your application
 
 ```
 func main() {
@@ -29,4 +33,14 @@ func main() {
 }
 ```
 
-To see the final result `git checkout adding-server-final`
+### Run 
+
+`go get -u github.com/gin-gonic/gin` in the terminal to download the gin dependency
+
+when everything compile run:
+
+`go run main.go`
+
+access `requests.rest` and send the `ping` request
+
+To see the final result `git checkout . && git checkout gin_added`
