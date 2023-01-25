@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"errors"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -19,7 +20,13 @@ func NewHandler(db *gorm.DB) (*Handler, error) {
 }
 
 func (h Handler) listQuestions(c *gin.Context) {
-	// TODO
+	var questions []Question
+	err := h.db.Find(&questions).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+	c.JSON(http.StatusOK, questions)
 }
 
 func (h Handler) addQuestion(c *gin.Context) {
