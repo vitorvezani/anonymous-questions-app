@@ -1,6 +1,8 @@
 package pkg_test
 
 import (
+	"net/http"
+	"net/http/httptest"
 	"os"
 	"testing"
 
@@ -14,7 +16,15 @@ import (
 var dbFile = "sqlite_test.db"
 
 func TestListQuestions(t *testing.T) {
-	// TODO
+	r := setupServer(t)
+	defer cleanUp()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v0/questions", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, "[]", w.Body.String())
 }
 
 func TestAddQuestions(t *testing.T) {
