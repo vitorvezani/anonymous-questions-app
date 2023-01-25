@@ -30,7 +30,19 @@ func (h Handler) listQuestions(c *gin.Context) {
 }
 
 func (h Handler) addQuestion(c *gin.Context) {
-	// TODO
+	var question Question
+	err := c.ShouldBindJSON(&question)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	err = h.db.Create(&question).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+	c.JSON(http.StatusCreated, question)
 }
 
 func (h Handler) deleteQuestions(c *gin.Context) {
