@@ -3,6 +3,7 @@ package pkg
 import (
 	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -55,5 +56,18 @@ func (h Handler) deleteQuestions(c *gin.Context) {
 }
 
 func (h Handler) upVoteQuestion(c *gin.Context) {
-	// TODO
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	var upVotes int
+	err = h.db.Raw("UPDATE questions SET up_votes = up_votes + 1 WHERE id = ? RETURNING up_votes", id).Scan(&upVotes).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{"up_votes": upVotes})
 }
