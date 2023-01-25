@@ -46,7 +46,12 @@ func (h Handler) addQuestion(c *gin.Context) {
 }
 
 func (h Handler) deleteQuestions(c *gin.Context) {
-	// TODO
+	err := h.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&Question{}).Error
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+	c.Writer.WriteHeader(http.StatusNoContent)
 }
 
 func (h Handler) upVoteQuestion(c *gin.Context) {
