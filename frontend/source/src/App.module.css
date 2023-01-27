@@ -1,0 +1,61 @@
+.titleContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.titleSection {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  width: 30rem;
+}
+
+.delete {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.delete:hover {
+  cursor: pointer;
+}
+
+.questionsContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.question {
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 30rem;
+}
+
+.questionContent {
+  padding-bottom: 0.5rem;
+}
+
+.upVoteContainer {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.upVote {
+  width: 1rem;
+  height: 1rem;
+}
+
+.upVote:hover {
+  cursor: pointer;
+}
+
+.emptyQuestion {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 1rem 0;
+}

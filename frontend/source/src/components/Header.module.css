@@ -1,0 +1,23 @@
+.container {
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  gap: 1rem;
+  height: 3.5rem;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+}
+
+.link {
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #3b82f6;
+}

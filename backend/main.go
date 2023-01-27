@@ -2,6 +2,7 @@ package main
 
 import (
 	"fairwinds.com/anonymous-questions-app/pkg"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/glebarez/sqlite"
 	"github.com/sirupsen/logrus"
@@ -22,6 +23,7 @@ func main() {
 	}
 
 	r := gin.Default()
+	r.Use(cors.Default())
 
 	s, err := pkg.NewServer(r, h)
 	if err != nil {
