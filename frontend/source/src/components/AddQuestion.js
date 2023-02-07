@@ -17,7 +17,7 @@ const AddQuestion = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/v0/questions", {
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v0/questions`, {
         method: "POST",
         headers: {
           Accept: "application/json",

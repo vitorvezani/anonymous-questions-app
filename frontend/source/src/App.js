@@ -13,7 +13,7 @@ const App = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/v0/questions");
+      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v0/questions`);
       const questions = await response.json();
       setQuestions(questions);
     } catch (error) {
@@ -29,7 +29,7 @@ const App = () => {
     }
     try {
       const response = await fetch(
-        `http://localhost:8080/api/v0/questions/${question.ID}/up-vote`,
+        `${process.env.REACT_APP_SERVER_URL}/api/v0/questions/${question.ID}/up-vote`,
         {
           method: "POST",
           headers: {
@@ -51,7 +51,7 @@ const App = () => {
 
   const deleteAllQuestions = async () => {
     try {
-      await fetch("http://localhost:8080/api/v0/questions", {
+      await fetch(`${process.env.REACT_APP_SERVER_URL}/api/v0/questions`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
