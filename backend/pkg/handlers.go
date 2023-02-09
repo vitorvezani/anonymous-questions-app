@@ -22,7 +22,7 @@ func NewHandler(db *gorm.DB) (*Handler, error) {
 
 func (h Handler) listQuestions(c *gin.Context) {
 	var questions []Question
-	err := h.db.Find(&questions).Error
+	err := h.db.WithContext(c.Request.Context()).Find(&questions).Error
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
@@ -38,7 +38,7 @@ func (h Handler) addQuestion(c *gin.Context) {
 		return
 	}
 
-	err = h.db.Create(&question).Error
+	err = h.db.WithContext(c.Request.Context()).Create(&question).Error
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
@@ -47,7 +47,7 @@ func (h Handler) addQuestion(c *gin.Context) {
 }
 
 func (h Handler) deleteQuestions(c *gin.Context) {
-	err := h.db.Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&Question{}).Error
+	err := h.db.WithContext(c.Request.Context()).Session(&gorm.Session{AllowGlobalUpdate: true}).Delete(&Question{}).Error
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
@@ -63,7 +63,7 @@ func (h Handler) upVoteQuestion(c *gin.Context) {
 	}
 
 	var upVotes int
-	err = h.db.Raw("UPDATE questions SET up_votes = up_votes + 1 WHERE id = ? RETURNING up_votes", id).Scan(&upVotes).Error
+	err = h.db.WithContext(c.Request.Context()).Raw("UPDATE questions SET up_votes = up_votes + 1 WHERE id = ? RETURNING up_votes", id).Scan(&upVotes).Error
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return

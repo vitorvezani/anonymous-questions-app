@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/glebarez/sqlite"
 	"github.com/sirupsen/logrus"
+	"github.com/uptrace/opentelemetry-go-extra/otelgorm"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 	"gorm.io/gorm"
@@ -26,7 +27,11 @@ func main() {
 
 	db.AutoMigrate(&pkg.Question{})
 
-	
+	err = db.Use(otelgorm.NewPlugin())
+	if err != nil {
+		logrus.Fatal("could not install otelgorm plugin", err)
+	}
+
 	h, err := pkg.NewHandler(db)
 	if err != nil {
 		logrus.Fatal("could not create handler", err)
