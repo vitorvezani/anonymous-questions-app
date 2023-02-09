@@ -4,20 +4,26 @@ import (
 	"errors"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
+	"go.opentelemetry.io/otel/trace"
 	"gorm.io/gorm"
 )
 
 type Handler struct {
-	db *gorm.DB
+	tracer trace.Tracer
+	db     *gorm.DB
 }
 
-func NewHandler(db *gorm.DB) (*Handler, error) {
+func NewHandler(t trace.Tracer, db *gorm.DB) (*Handler, error) {
 	if db == nil {
 		return nil, errors.New("db is require")
 	}
-	return &Handler{db}, nil
+	if t == nil {
+		return nil, errors.New("tracer is require")
+	}
+	return &Handler{t, db}, nil
 }
 
 func (h Handler) listQuestions(c *gin.Context) {
@@ -43,7 +49,23 @@ func (h Handler) addQuestion(c *gin.Context) {
 		c.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
+
+	err = integrateWithExternalService(c, h.tracer)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
 	c.JSON(http.StatusCreated, question)
+}
+
+func integrateWithExternalService(c *gin.Context, t trace.Tracer) error {
+	_, span := t.Start(c.Request.Context(), "XYZ integration")
+	defer span.End()
+
+	time.Sleep(100 * time.Millisecond)
+
+	return nil
 }
 
 func (h Handler) deleteQuestions(c *gin.Context) {

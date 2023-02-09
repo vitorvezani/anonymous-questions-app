@@ -41,11 +41,6 @@ func main() {
 		logrus.Fatal("could not install otelgorm plugin", err)
 	}
 
-	h, err := pkg.NewHandler(db)
-	if err != nil {
-		logrus.Fatal("could not create handler", err)
-	}
-
 	r := gin.Default()
 	r.Use(cors.Default())
 
@@ -60,6 +55,13 @@ func main() {
 	}()
 
 	r.Use(otelgin.Middleware(service))
+
+	t := tp.Tracer("default")
+
+	h, err := pkg.NewHandler(t, db)
+	if err != nil {
+		logrus.Fatal("could not create handler", err)
+	}
 
 	s, err := pkg.NewServer(r, h)
 	if err != nil {
