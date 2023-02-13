@@ -1,6 +1,7 @@
 package pkg_test
 
 import (
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -43,7 +44,22 @@ func TestAddQuestionsError(t *testing.T) {
 }
 
 func TestAddQuestions(t *testing.T) {
-	// TODO
+	r := setupServer(t)
+	defer cleanUp()
+
+	payload := strings.NewReader(`{"Text": "Is this a good question?"}`)
+
+	req, _ := http.NewRequest("POST", "/api/v0/questions", payload)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusCreated, w.Code)
+	var q pkg.Question
+	err := json.Unmarshal(w.Body.Bytes(), &q)
+	assert.NoError(t, err)
+	assert.NotZero(t, q.ID)
+	assert.Zero(t, q.UpVotes)
+	assert.Equal(t, "Is this a good question?", q.Text)
 }
 
 func TestDeleteQuestions(t *testing.T) {
