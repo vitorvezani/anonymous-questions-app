@@ -29,7 +29,17 @@ func TestListQuestions(t *testing.T) {
 }
 
 func TestAddQuestionsError(t *testing.T) {
-	// TODO
+	r := setupServer(t)
+	defer cleanUp()
+
+	payload := strings.NewReader(`{"Text": "Is this a good question"}`)
+
+	req, _ := http.NewRequest("POST", "/api/v0/questions", payload)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusBadRequest, w.Code)
+	assert.Equal(t, `{"error":"Key: 'Question.Text' Error:Field validation for 'Text' failed on the 'questionValidator' tag"}`, w.Body.String())
 }
 
 func TestAddQuestions(t *testing.T) {
