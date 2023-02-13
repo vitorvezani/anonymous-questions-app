@@ -3,7 +3,10 @@ package pkg
 import (
 	"errors"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 )
 
 type Server struct {
@@ -18,6 +21,13 @@ func NewServer(gin *gin.Engine, h *Handler) (*Server, error) {
 		return nil, errors.New("h is require")
 	}
 	setupRoutes(gin, h)
+
+	gin.Use(cors.Default())
+
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("questionValidator", questionValidatorFn)
+	}
+
 	return &Server{gin}, nil
 }
 

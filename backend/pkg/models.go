@@ -7,6 +7,6 @@ import (
 type Question struct {
 	gorm.Model
 
-	Text    string `binding:"required"`
+	Text    string `binding:"required,questionValidator"`
 	UpVotes int
 }
