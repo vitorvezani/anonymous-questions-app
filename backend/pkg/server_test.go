@@ -17,7 +17,15 @@ import (
 var dbFile = "sqlite_test.db"
 
 func TestListQuestions(t *testing.T) {
-	// TODO
+	r := setupServer(t)
+	defer cleanUp()
+
+	req, _ := http.NewRequest("GET", "/api/v0/questions", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, "[]", w.Body.String())
 }
 
 func TestAddQuestionsError(t *testing.T) {
