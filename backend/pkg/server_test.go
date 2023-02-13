@@ -83,7 +83,17 @@ func TestDeleteQuestions(t *testing.T) {
 }
 
 func TestUpVoteQuestion(t *testing.T) {
-	// TODO
+	r := setupServer(t)
+	defer cleanUp()
+
+	addQuestion(t, r)
+
+	req, _ := http.NewRequest("POST", "/api/v0/questions/1/up-vote", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, `{"up_votes":1}`, w.Body.String())
 }
 
 func addQuestion(t *testing.T, r *gin.Engine) {
