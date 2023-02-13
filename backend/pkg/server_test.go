@@ -63,7 +63,23 @@ func TestAddQuestions(t *testing.T) {
 }
 
 func TestDeleteQuestions(t *testing.T) {
-	// TODO
+	r := setupServer(t)
+	defer cleanUp()
+
+	addQuestion(t, r)
+
+	req, _ := http.NewRequest("DELETE", "/api/v0/questions", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusNoContent, w.Code)
+
+	req, _ = http.NewRequest("GET", "/api/v0/questions", nil)
+	w = httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, "[]", w.Body.String())
 }
 
 func TestUpVoteQuestion(t *testing.T) {
