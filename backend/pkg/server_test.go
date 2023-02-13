@@ -21,11 +21,11 @@ func TestListQuestions(t *testing.T) {
 	r := setupServer(t)
 	defer cleanUp()
 
-	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/api/v0/questions", nil)
+	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
-	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, http.StatusOK, w.Code)
 	assert.Equal(t, "[]", w.Body.String())
 }
 
@@ -33,20 +33,56 @@ func TestAddQuestions(t *testing.T) {
 	r := setupServer(t)
 	defer cleanUp()
 
-	w := httptest.NewRecorder()
-
 	payload := strings.NewReader(`{"Text": "Is this a good question?"}`)
 
 	req, _ := http.NewRequest("POST", "/api/v0/questions", payload)
+	w := httptest.NewRecorder()
 	r.ServeHTTP(w, req)
 
-	assert.Equal(t, 201, w.Code)
+	assert.Equal(t, http.StatusCreated, w.Code)
 	var q pkg.Question
 	err := json.Unmarshal(w.Body.Bytes(), &q)
 	assert.NoError(t, err)
 	assert.NotZero(t, q.ID)
 	assert.Zero(t, q.UpVotes)
 	assert.Equal(t, "Is this a good question?", q.Text)
+}
+
+func TestDeleteQuestions(t *testing.T) {
+	r := setupServer(t)
+	defer cleanUp()
+
+	addQuestion(t, r)
+
+	req, _ := http.NewRequest("DELETE", "/api/v0/questions", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusNoContent, w.Code)
+}
+
+func TestUpVoteQuestion(t *testing.T) {
+	r := setupServer(t)
+	defer cleanUp()
+
+	addQuestion(t, r)
+
+	req, _ := http.NewRequest("POST", "/api/v0/questions/1/up-vote", nil)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, `{"up_votes":1}`, w.Body.String())
+}
+
+func addQuestion(t *testing.T, r *gin.Engine) {
+	payload := strings.NewReader(`{"Text": "Is this a good question?"}`)
+
+	req, _ := http.NewRequest("POST", "/api/v0/questions", payload)
+	w := httptest.NewRecorder()
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, 201, w.Code)
 }
 
 func setupServer(t *testing.T) *gin.Engine {
