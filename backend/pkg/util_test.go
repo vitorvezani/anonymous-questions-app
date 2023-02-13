@@ -4,7 +4,13 @@ import (
 	"testing"
 )
 
+// go test -run ^TestValidateQuestion$ fairwinds.com/anonymous-questions-app/pkg -v
 func TestValidateQuestion(t *testing.T) {
+
+	// Given XYZ
+	// if I do XYZ
+	// I expect XYZ
+
 	var tests = []struct {
 		i    string
 		want bool
